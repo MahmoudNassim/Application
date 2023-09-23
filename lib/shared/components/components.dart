@@ -13,7 +13,7 @@ Widget defaultButton({
           onPressed: function,
           child: Text(
             text.toUpperCase(),
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           )),
     );
 
@@ -27,7 +27,9 @@ Widget defaultFormField(
         required var prefix,
         var suffix ,
         var obsecuretext= false ,
-        var suffixpressed
+        var suffixpressed,
+        var onTap ,
+        var isClickable = true 
         }) =>
     TextFormField(
       keyboardType: type,
@@ -36,10 +38,44 @@ Widget defaultFormField(
       onFieldSubmitted: onSumbit,
       onChanged: onChanged,
       validator: validate,
+      onTap: onTap ,
+      enabled: isClickable,
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(prefix),
         suffix: suffix!= null ? IconButton(onPressed:suffixpressed , icon: Icon(suffix)) : null,
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
       ),
     );
+    Widget buildTaskItem(Map model)=>  Padding(
+      padding: EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 40,
+            child: Text("${model['time']}"),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("${model['title']}",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold
+              ),
+              ),
+              Text("${model['date']}",
+              style: TextStyle(
+                color: Colors.grey
+              ),
+              ),
+    
+            ],
+          ),
+        ],
+      ),
+    );
+  
