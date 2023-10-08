@@ -1,17 +1,19 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_application/layout/home_layout.dart';
-import 'package:todo_application/modules/home/Home.dart';
+import 'package:todo_application/shared/bloc_observer.dart';
 
 void main() {
-  runApp(const MyApp());
+  Bloc.observer = MyBlocObserver();
+  runApp( MyApp());
 }
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Home(),
+    return  MaterialApp(
+      home: HomeLayout(),
       debugShowCheckedModeBanner: false,
     );
   }  

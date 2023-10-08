@@ -1,9 +1,11 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_application/shared/components/components.dart';
-import 'package:todo_application/shared/components/constants.dart';
+import 'package:todo_application/shared/cubit/cubit.dart';
+import 'package:todo_application/shared/cubit/states.dart';
 
 class NewTasksScreen extends StatefulWidget {
-
   NewTasksScreen({super.key});
 
   @override
@@ -13,13 +15,12 @@ class NewTasksScreen extends StatefulWidget {
 class _NewTasksScreenState extends State<NewTasksScreen> {
   @override
   Widget build(BuildContext context) {
-    return  ListView.separated(itemBuilder: (context,index)=>buildTaskItem(tasks[index]), separatorBuilder: (context,index)=>Padding(
-      padding: const EdgeInsetsDirectional.only(start: 20),
-      child: Container(
-        width: double.infinity,
-        height: 1,
-        color: Colors.grey[300],
-      ),
-    ), itemCount: tasks.length);
+    return BlocConsumer<AppCubit, AppStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var tasks = AppCubit.get(context).newTasks;
+        return taskBuilder(tasks: tasks);
+      },
+    );
   }
 }
